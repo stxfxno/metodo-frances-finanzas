@@ -1,0 +1,52 @@
+[
+    {
+      "id": "ejemplo-1",
+      "nombre": "Préstamo Hipotecario Estándar",
+      "prestamo": {
+        "capital": 100000,
+        "tasaInteresAnual": 6,
+        "plazoAnios": 5,
+        "frecuenciaPago": 12,
+        "fechaInicio": "2023-04-15",
+        "pagosAdicionales": []
+      }
+    },
+    {
+      "id": "ejemplo-2",
+      "nombre": "Préstamo con Pago Adicional",
+      "prestamo": {
+        "capital": 100000,
+        "tasaInteresAnual": 6,
+        "plazoAnios": 5,
+        "frecuenciaPago": 12,
+        "fechaInicio": "2023-04-15",
+        "pagosAdicionales": [
+          { "periodo": 24, "monto": 10000 }
+        ]
+      }
+    },
+    {
+      "id": "ejemplo-3",
+      "nombre": "Préstamo Trimestral",
+      "prestamo": {
+        "capital": 50000,
+        "tasaInteresAnual": 5,
+        "plazoAnios": 3,
+        "frecuenciaPago": 4,
+        "fechaInicio": "2023-04-15",
+        "pagosAdicionales": []
+      }
+    },
+    {
+      "id": "ejemplo-4",
+      "nombre": "Préstamo Vivienda",
+      "prestamo": {
+        "capital": 200000,
+        "tasaInteresAnual": 4.5,
+        "plazoAnios": 10,
+        "frecuenciaPago": 12,
+        "fechaInicio": "2023-04-15",
+        "pagosAdicionales": []
+      }
+    }
+  ]
