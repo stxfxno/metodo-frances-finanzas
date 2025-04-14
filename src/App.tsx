@@ -6,6 +6,7 @@ import GraficosAmortizacion from './components/GraficosAmortizacion';
 import { PrestamoInput, ResultadoAmortizacion } from './types/types';
 import { calcularAmortizacionFrances } from './utils/calculadoraAmortizacion';
 import ejemplosPrestamos from './data/ejemplosPrestamos.json';
+// Eliminar cualquier restricción adicional de validación
 
 function App() {
   const [prestamoInput, setPrestamoInput] = useState<PrestamoInput>({
@@ -23,18 +24,47 @@ function App() {
   
   // Calcular amortización cuando cambian los inputs
   useEffect(() => {
-    calcularAmortizacion();
+    // No calculamos automáticamente al inicio para evitar errores
+    // calcularAmortizacion();
   }, []);
 
   const calcularAmortizacion = () => {
     try {
-      const resultado = calcularAmortizacionFrances(prestamoInput);
+      // Crear una copia del objeto para no modificar el original
+      const datosProcesados = { ...prestamoInput };
+      
+      // Convertir y validar el capital
+      datosProcesados.capital = Number(datosProcesados.capital);
+      if (isNaN(datosProcesados.capital) || datosProcesados.capital <= 0) {
+        throw new Error("El capital debe ser un número mayor que cero.");
+      }
+      
+      // Convertir y validar la tasa de interés
+      datosProcesados.tasaInteresAnual = Number(datosProcesados.tasaInteresAnual);
+      if (isNaN(datosProcesados.tasaInteresAnual) || datosProcesados.tasaInteresAnual <= 0) {
+        throw new Error("La tasa de interés debe ser un número mayor que cero.");
+      }
+      
+      // Convertir y validar el plazo
+      datosProcesados.plazoAnios = Number(datosProcesados.plazoAnios);
+      if (isNaN(datosProcesados.plazoAnios) || datosProcesados.plazoAnios <= 0) {
+        throw new Error("El plazo debe ser un número mayor que cero.");
+      }
+      
+      // Asegurarse de que pagosAdicionales existe
+      if (!datosProcesados.pagosAdicionales) {
+        datosProcesados.pagosAdicionales = [];
+      }
+      
+      // Realizar el cálculo con los datos procesados
+      const resultado = calcularAmortizacionFrances(datosProcesados);
       setResultado(resultado);
       setMostrarTabla(true);
       setMostrarGraficos(true);
     } catch (error) {
       console.error("Error al calcular la amortización:", error);
-      alert("Ocurrió un error al calcular la amortización. Verifique los datos ingresados.");
+      const mensaje = error instanceof Error ? error.message : "Ocurrió un error al calcular la amortización. Verifique los datos ingresados.";
+      alert(mensaje);
     }
   };
 

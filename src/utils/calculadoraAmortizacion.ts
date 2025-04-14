@@ -9,17 +9,34 @@ export function calcularAmortizacionFrances(prestamoInput: PrestamoInput): Resul
   // Extraer parámetros
   const { capital, tasaInteresAnual, plazoAnios, frecuenciaPago, fechaInicio, pagosAdicionales = [] } = prestamoInput;
 
+  // Validación de datos de entrada
+  if (isNaN(Number(capital)) || Number(capital) <= 0) {
+    throw new Error("El capital debe ser un número mayor que cero");
+  }
+
+  if (isNaN(Number(tasaInteresAnual)) || Number(tasaInteresAnual) <= 0) {
+    throw new Error("La tasa de interés debe ser un número mayor que cero");
+  }
+
+  if (isNaN(Number(plazoAnios)) || Number(plazoAnios) <= 0) {
+    throw new Error("El plazo debe ser un número mayor que cero");
+  }
+
   // Calcular parámetros derivados
-  const numPeriodos = plazoAnios * frecuenciaPago;
-  const tasaInteresPeriodica = tasaInteresAnual / 100 / frecuenciaPago;
+  const capitalNumerico = Number(capital);
+  const tasaInteresAnualNumerica = Number(tasaInteresAnual);
+  const plazoAniosNumerico = Number(plazoAnios);
+  
+  const numPeriodos = plazoAniosNumerico * frecuenciaPago;
+  const tasaInteresPeriodica = tasaInteresAnualNumerica / 100 / frecuenciaPago;
 
   // Calcular cuota periódica
-  const cuotaPeriodica = capital * (tasaInteresPeriodica * Math.pow(1 + tasaInteresPeriodica, numPeriodos)) /
+  const cuotaPeriodica = capitalNumerico * (tasaInteresPeriodica * Math.pow(1 + tasaInteresPeriodica, numPeriodos)) /
                          (Math.pow(1 + tasaInteresPeriodica, numPeriodos) - 1);
 
   // Inicializar cuadro de amortización
   const cuadroAmortizacion: FilaPeriodo[] = [];
-  let capitalPendiente = capital;
+  let capitalPendiente = capitalNumerico;
   let fecha = new Date(fechaInicio);
 
   // Variables para calcular los totales
@@ -80,10 +97,10 @@ export function calcularAmortizacionFrances(prestamoInput: PrestamoInput): Resul
 
   return {
     parametros: {
-      capital,
-      tasaInteresAnual,
+      capital: capitalNumerico,
+      tasaInteresAnual: tasaInteresAnualNumerica,
       tasaInteresPeriodica: redondearDecimal(tasaInteresPeriodica * 100, 4), // Convertir a porcentaje
-      plazoAnios,
+      plazoAnios: plazoAniosNumerico,
       frecuenciaPago,
       numPeriodos,
       cuotaPeriodica: redondearDecimal(cuotaPeriodica, 2)

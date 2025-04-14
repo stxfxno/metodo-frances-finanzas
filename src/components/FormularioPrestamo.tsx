@@ -24,9 +24,10 @@ const FormularioPrestamo: React.FC<FormularioPrestamoProps> = ({
     const { name, value } = e.target;
     let valorProcesado: string | number = value;
 
-    // Convertir a número para campos numéricos
+    // Convertir a número para campos numéricos sin validación restrictiva
     if (name === 'capital' || name === 'tasaInteresAnual' || name === 'plazoAnios') {
-      valorProcesado = parseFloat(value) || 0;
+      // Solo convierte si hay un valor, de lo contrario deja cadena vacía para evitar "0"
+      valorProcesado = value === '' ? '' : Number(value);
     }
 
     // Convertir frecuenciaPago a número
@@ -105,15 +106,15 @@ const FormularioPrestamo: React.FC<FormularioPrestamoProps> = ({
             <label htmlFor="capital" className="block text-sm font-medium text-gray-700 mb-1">
               Capital (€)
             </label>
-            <input
+                          <input
               type="number"
               id="capital"
               name="capital"
               value={prestamoInput.capital}
               onChange={handleChange}
               min="1"
-              step="1000"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              step="any"
+              className="w-full p-2 border border-gray-300 rounded-md bg-white text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               required
             />
           </div>
@@ -131,7 +132,7 @@ const FormularioPrestamo: React.FC<FormularioPrestamoProps> = ({
               onChange={handleChange}
               min="0.01"
               step="0.01"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md bg-white text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               required
             />
           </div>
@@ -149,7 +150,7 @@ const FormularioPrestamo: React.FC<FormularioPrestamoProps> = ({
               onChange={handleChange}
               min="1"
               max="50"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md bg-white text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               required
             />
           </div>
@@ -164,7 +165,7 @@ const FormularioPrestamo: React.FC<FormularioPrestamoProps> = ({
               name="frecuenciaPago"
               value={prestamoInput.frecuenciaPago}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md bg-white text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               required
             >
               <option value="12">Mensual</option>
@@ -185,7 +186,7 @@ const FormularioPrestamo: React.FC<FormularioPrestamoProps> = ({
               name="fechaInicio"
               value={prestamoInput.fechaInicio}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md bg-white text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               required
             />
           </div>
@@ -212,10 +213,10 @@ const FormularioPrestamo: React.FC<FormularioPrestamoProps> = ({
                   <input
                     type="number"
                     id="nuevoPagoPeriodo"
-                    value={nuevoPagoPeriodo}
+                    value={nuevoPagoPeriodo || ''}
                     onChange={(e) => setNuevoPagoPeriodo(parseInt(e.target.value, 10) || 0)}
                     min="1"
-                    className="w-full p-2 border border-gray-300 rounded-md"
+                    className="w-full p-2 border border-gray-300 rounded-md bg-white text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                   />
                 </div>
                 <div>
@@ -225,11 +226,11 @@ const FormularioPrestamo: React.FC<FormularioPrestamoProps> = ({
                   <input
                     type="number"
                     id="nuevoPagoMonto"
-                    value={nuevoPagoMonto}
+                    value={nuevoPagoMonto || ''}
                     onChange={(e) => setNuevoPagoMonto(parseFloat(e.target.value) || 0)}
                     min="1"
                     step="100"
-                    className="w-full p-2 border border-gray-300 rounded-md"
+                    className="w-full p-2 border border-gray-300 rounded-md bg-white text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                   />
                 </div>
                 <div className="flex items-end">

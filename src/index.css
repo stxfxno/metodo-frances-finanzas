@@ -7,7 +7,7 @@
   line-height: 1.5;
   font-weight: 400;
   
-  color-scheme: light dark;
+  color-scheme: light;
   color: rgba(0, 0, 0, 0.87);
   background-color: #f5f5f5;
   
@@ -23,6 +23,27 @@ body {
   min-height: 100vh;
 }
 
+/* Estilos para los campos de formulario */
+input[type="number"],
+input[type="date"],
+input[type="text"],
+select {
+  background-color: white !important;
+  color: black !important;
+  border: 1px solid #d1d5db !important;
+  appearance: auto !important; /* Asegura el comportamiento normal del input */
+}
+
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="text"]:focus,
+select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
+  outline: none !important;
+}
+
+/* Quitar las flechas de los inputs de tipo número */
 input[type="number"] {
   -moz-appearance: textfield;
 }
