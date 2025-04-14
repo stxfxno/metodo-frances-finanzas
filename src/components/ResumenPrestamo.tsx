@@ -9,10 +9,13 @@ interface ResumenPrestamoProps {
 const ResumenPrestamo: React.FC<ResumenPrestamoProps> = ({ resultado }) => {
   const { parametros, totales } = resultado;
   
-  // Calculamos la TAE
+  // En ResumenPrestamo.tsx
   const tae = calcularTAE(
     parametros.tasaInteresAnual,
-    parametros.frecuenciaPago
+    parametros.frecuenciaPago,
+    0, // comisiones
+    parametros.capital, // capital
+    parametros.plazoAnios // añadir el plazo en años
   );
   
   // Calculamos la fecha de vencimiento

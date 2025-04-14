@@ -166,7 +166,6 @@ const GraficosAmortizacion: React.FC<GraficosAmortizacionProps> = ({ resultado }
             <BarChart
               data={datosDistribucionSimplificados()}
               margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              stackOffset="expand"
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis 

@@ -106,25 +106,25 @@ export function calcularAmortizacionFrances(prestamoInput: PrestamoInput): Resul
  * @returns TAE en porcentaje
  */
 export function calcularTAE(
-  tasaNominal: number, 
-  frecuenciaPago: number, 
-  comisiones: number = 0, 
-  capital: number = 0
-): number {
-  const tasaPeriodicaNominal = tasaNominal / 100 / frecuenciaPago;
-  let tae = Math.pow(1 + tasaPeriodicaNominal, frecuenciaPago) - 1;
-
-  // Ajustar por comisiones si es necesario
-  if (comisiones > 0 && capital > 0) {
-    const capitalEfectivo = capital - comisiones;
-    // Este es un cálculo simplificado. Un cálculo completo de TAE con comisiones
-    // requeriría un método iterativo para resolver la ecuación.
-    tae = (Math.pow(capital / capitalEfectivo, 1 / plazoAnios) - 1) * frecuenciaPago;
+    tasaNominal: number, 
+    frecuenciaPago: number, 
+    comisiones: number = 0, 
+    capital: number = 0,
+    plazoAnios: number = 1  // Añadir este parámetro con valor por defecto
+  ): number {
+    const tasaPeriodicaNominal = tasaNominal / 100 / frecuenciaPago;
+    let tae = Math.pow(1 + tasaPeriodicaNominal, frecuenciaPago) - 1;
+  
+    // Ajustar por comisiones si es necesario
+    if (comisiones > 0 && capital > 0) {
+      const capitalEfectivo = capital - comisiones;
+      // Este es un cálculo simplificado. Un cálculo completo de TAE con comisiones
+      // requeriría un método iterativo para resolver la ecuación.
+      tae = (Math.pow(capital / capitalEfectivo, 1 / plazoAnios) - 1) * frecuenciaPago;
+    }
+  
+    return redondearDecimal(tae * 100, 2); // Convertir a porcentaje
   }
-
-  return redondearDecimal(tae * 100, 2); // Convertir a porcentaje
-}
-
 /**
  * Calcula la fecha de vencimiento final del préstamo
  * @param fechaInicio Fecha de inicio del préstamo

@@ -10,19 +10,19 @@ interface FormularioPrestamoProps {
 }
 
 const FormularioPrestamo: React.FC<FormularioPrestamoProps> = ({
-  prestamoInput,
-  onInputChange,
-  onCalcular,
-  onCargarEjemplo,
-  ejemplos
-}) => {
+    prestamoInput,
+    onInputChange,
+    onCalcular,
+    onCargarEjemplo,
+    ejemplos
+  }) => {
   const [nuevoPagoPeriodo, setNuevoPagoPeriodo] = useState<number>(0);
   const [nuevoPagoMonto, setNuevoPagoMonto] = useState<number>(0);
   const [mostrarPagosAdicionales, setMostrarPagosAdicionales] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    let valorProcesado: any = value;
+    let valorProcesado: string | number = value;
 
     // Convertir a número para campos numéricos
     if (name === 'capital' || name === 'tasaInteresAnual' || name === 'plazoAnios') {
